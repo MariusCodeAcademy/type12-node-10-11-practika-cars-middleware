@@ -4,6 +4,7 @@ const express = require('express');
 // eslint-disable-next-line no-unused-vars
 const colors = require('colors');
 const morgan = require('morgan');
+const cors = require('cors');
 const { testDbConnection } = require('./utils/helper');
 
 const app = express();
@@ -11,6 +12,7 @@ const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(morgan('dev'));
+app.use(cors());
 // prisidedam morgan/cors
 // GET / - msg: server online
 

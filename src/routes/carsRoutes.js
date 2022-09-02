@@ -14,7 +14,7 @@ carRouter.get('/', async (req, res) => {
   try {
     const conn = await mysql.createConnection(dbConfig);
     const sql = `SELECT ${selectedColumns} FROM cars WHERE deleted = 0`;
-    console.log('sql ===', sql);
+    // console.log('sql ===', sql);
     const [rows] = await conn.query(sql);
     res.status(200).json(rows);
     conn.end();
