@@ -1,4 +1,6 @@
-// susikurrti routeri
+const express = require('express');
+
+const carRouter = express.Router();
 
 // parsisiusti visus 2 automobilius
 
@@ -16,3 +18,5 @@
 //     msg: 'Something went wrong',
 //   });
 // }
+
+module.exports = carRouter;
