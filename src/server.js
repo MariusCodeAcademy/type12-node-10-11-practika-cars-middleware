@@ -21,6 +21,9 @@ app.get('/', (req, res) => {
 });
 
 // ROUTES
+const carRouter = require('./routes/carsRoutes');
+
+app.use('/api/cars', carRouter);
 
 // 404 - returns json
 app.use((req, res) => {
