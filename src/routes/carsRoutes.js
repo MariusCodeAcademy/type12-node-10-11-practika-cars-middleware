@@ -41,7 +41,7 @@ carRouter.get('/:carId', async (req, res) => {
     const conn = await mysql.createConnection(dbConfig);
     const sql = `SELECT ${selectedColumns} FROM cars WHERE deleted = 0 AND id = ?`;
     console.log('sql ===', sql);
-    const [rows] = await conn.execute(sql, [carId]);
+    const [rows] = await conn.execute(sql, [idNum]);
     // jei radom viena irasa
     if (rows.length === 1) {
       res.status(200).json(rows[0]);
@@ -60,5 +60,29 @@ carRouter.get('/:carId', async (req, res) => {
 });
 
 // 3. DELETE /api/cars/5 - istrina 1 auto pagal id arba 404
+carRouter.delete('/:carId', async (req, res) => {
+  try {
+    const conn = await mysql.createConnection(dbConfig);
+    const sql = `
+    UPDATE cars 
+    SET deleted = true
+    WHERE id = ?
+    LIMIT 1
+    `;
+    const [rows] = await conn.execute(sql, [req.params.carId]);
+    if (rows.changedRows === 1) {
+      res.status(200).json({ msg: 'car deleted' });
+    } else {
+      res.status(400).json({ msg: 'nothing deleted' });
+    }
+
+    conn.end();
+  } catch (error) {
+    console.log('error ', error);
+    res.status(500).json({
+      msg: 'Something went wrong',
+    });
+  }
+});
 
 module.exports = carRouter;

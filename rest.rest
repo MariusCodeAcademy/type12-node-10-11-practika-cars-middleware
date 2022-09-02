@@ -1,4 +1,6 @@
 GET http://localhost:3000/api/cars
 ####
-GET http://localhost:3000/api/cars/5a
+GET http://localhost:3000/api/cars/1
+####
+DELETE http://localhost:3000/api/cars/2
 ####
