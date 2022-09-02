@@ -1,2 +1,4 @@
 GET http://localhost:3000/api/cars
 ####
+GET http://localhost:3000/api/cars/5a
+####
