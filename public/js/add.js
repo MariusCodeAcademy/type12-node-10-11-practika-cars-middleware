@@ -5,9 +5,11 @@ console.log('add.js');
 const baseUrl = 'http://localhost:3000/api';
 
 const formEl = document.forms[0];
+const feedbackEl = document.getElementById('feedback');
 
 formEl.addEventListener('submit', async (e) => {
   e.preventDefault();
+  clearFeedback();
 
   // surinkti formos inputus
   const newCar = {
@@ -33,6 +35,26 @@ formEl.addEventListener('submit', async (e) => {
     // redirect
     window.location.href = 'index.html';
   } else if (resp.status === 400) {
-    // handleErrors() - > atvaizduoja klaidas
+    const dataInJs = await resp.json();
+    console.log('dataInJs ===', dataInJs);
+    if (dataInJs.type === 'validation') {
+      console.log('dataInJs.msg ===', dataInJs.msg);
+      // handleErrors() - > atvaizduoja klaidas
+      showAlert(dataInJs.msg);
+    }
   }
 });
+
+function showAlert(msg) {
+  const alertHtml = `
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    ${msg}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>  
+  `;
+  feedbackEl.innerHTML = alertHtml;
+}
+
+function clearFeedback() {
+  feedbackEl.innerHTML = '';
+}

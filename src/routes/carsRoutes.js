@@ -88,6 +88,16 @@ carRouter.delete('/:carId', async (req, res) => {
 carRouter.post('/', async (req, res) => {
   console.log('req.body ===', req.body);
   const { title, image, price, numberPlates } = req.body;
+
+  // VALIDATION
+  if (title.trim() === '') {
+    res.status(400).json({
+      type: 'validation',
+      msg: 'Please check the form',
+    });
+    return;
+  }
+
   try {
     const conn = await mysql.createConnection(dbConfig);
     const sql = `
