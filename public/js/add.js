@@ -1,8 +1,6 @@
 // eslint-disable-next-line strict, lines-around-directive
 'use strict';
 
-const { response } = require('express');
-
 console.log('add.js');
 
 const formEl = document.forms[0];
