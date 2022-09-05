@@ -38,9 +38,9 @@ formEl.addEventListener('submit', async (e) => {
     const dataInJs = await resp.json();
     console.log('dataInJs ===', dataInJs);
     if (dataInJs.type === 'validation') {
-      console.log('dataInJs.msg ===', dataInJs.msg);
-      // handleErrors() - > atvaizduoja klaidas
-      showAlert(dataInJs.msg);
+      // console.log('dataInJs.msg ===', dataInJs.msg);
+      // // handleErrors() - > atvaizduoja klaidas
+      // showAlert(dataInJs.msg);
     }
   }
 });

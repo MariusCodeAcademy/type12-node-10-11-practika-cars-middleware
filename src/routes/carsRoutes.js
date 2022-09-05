@@ -88,12 +88,35 @@ carRouter.delete('/:carId', async (req, res) => {
 carRouter.post('/', async (req, res) => {
   console.log('req.body ===', req.body);
   const { title, image, price, numberPlates } = req.body;
+  const validationErrors = [];
+  // bendra VALIDATION
+  // if (title.trim() === '' || image.trim() === '') {
+  //   res.status(400).json({
+  //     type: 'validation',
+  //     msg: 'Please check the form',
+  //   });
+  //   return;
+  // }
 
-  // VALIDATION
+  // individual validation
   if (title.trim() === '') {
+    validationErrors.push({
+      field: 'title',
+      msg: 'cant be blank',
+    });
+  }
+  if (title.trim() < 3) {
+    validationErrors.push({
+      field: 'title',
+      msg: 'should be longer than 3',
+    });
+  }
+
+  // ar turim klaidu?
+  if (validationErrors.length > 0) {
     res.status(400).json({
       type: 'validation',
-      msg: 'Please check the form',
+      errors: validationErrors,
     });
     return;
   }
