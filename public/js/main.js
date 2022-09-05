@@ -16,14 +16,23 @@ function deleteCar(idToDelete) {
 function makeCarsListHtml(carsArr, dest) {
   dest.innerHTML = '';
   carsArr.forEach((cObj) => {
-    const liEl = document.createElement('li');
-    liEl.textContent = `${cObj.title} - $${cObj.price}`;
+    const carDivEl = document.createElement('div');
+    carDivEl.className = 'card';
+    carDivEl.innerHTML = `
+    <img src="images/${cObj.image}" class="card-img-top img-fluid" alt="..." />
+    <div class="card-body">
+      <h5 class="card-title">${cObj.title}</h5>
+      <p class="card-text"
+        >${cObj.numberPlates} - Price: $${cObj.price}</p
+      >
+    </div>
+    `;
     const buttonEl = document.createElement('button');
     buttonEl.addEventListener('click', () => deleteCar(cObj.id));
     buttonEl.textContent = 'delete';
     buttonEl.classList = 'btn btn-danger';
-    liEl.append(buttonEl);
-    dest.append(liEl);
+    carDivEl.querySelector('.card-body').append(buttonEl);
+    dest.append(carDivEl);
   });
 }
 
