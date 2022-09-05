@@ -6,3 +6,15 @@
 4. POST /api/cars/ - sukukuria auto is gautu duomenu
    1. validuoti laukus
 
+
+
+# Front End FE
+
+1. sddssd
+
+
+
+# Front End FE papildomai
+
+1. Prisideti komentarus prie automobiliu,
+2. Prisideti krepselio funkcionaluma prie automobiliu. (auto butu galima deti i krepseli)

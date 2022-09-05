@@ -1,7 +1,6 @@
 console.log('main.js');
 
 // eslint-disable-next-line strict, linebreak-style
-('use strict');
 
 const baseUrl = 'http://localhost:3000/api';
 const carListEl = document.getElementById('cars');
@@ -22,6 +21,7 @@ function makeCarsListHtml(carsArr, dest) {
     const buttonEl = document.createElement('button');
     buttonEl.addEventListener('click', () => deleteCar(cObj.id));
     buttonEl.textContent = 'delete';
+    buttonEl.classList = 'btn btn-danger';
     liEl.append(buttonEl);
     dest.append(liEl);
   });
