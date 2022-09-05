@@ -2,10 +2,11 @@
 'use strict';
 
 console.log('add.js');
+const baseUrl = 'http://localhost:3000/api';
 
 const formEl = document.forms[0];
 
-formEl.addEventListener('submit', (e) => {
+formEl.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   // surinkti formos inputus
@@ -18,14 +19,20 @@ formEl.addEventListener('submit', (e) => {
   console.log('newCar ===', newCar);
 
   // siusti newCar i musu back end
+  const resp = await fetch(`${baseUrl}/cars`, {
+    method: 'POST',
+    headers: { 'Content-type': 'application/json' },
+    body: JSON.stringify(newCar),
+  });
 
-  // gavus patvirtinima kad sukurtas automobilis redirectinti i home page
+  console.log('resp ===', resp);
 
   // o neigiama mes rodom klaidas
 
-  // if (resp.ok) {
-  //   // redirect
-  // } else if (resp.status === 400) {
-  //   // handleErrors() - > atvaizduoja klaidas
-  // }
+  if (resp.ok) {
+    // redirect
+    window.location.href = 'index.html';
+  } else if (resp.status === 400) {
+    // handleErrors() - > atvaizduoja klaidas
+  }
 });

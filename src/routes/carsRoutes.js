@@ -85,4 +85,31 @@ carRouter.delete('/:carId', async (req, res) => {
   }
 });
 
+carRouter.post('/', async (req, res) => {
+  console.log('req.body ===', req.body);
+  const { title, image, price, numberPlates } = req.body;
+  try {
+    const conn = await mysql.createConnection(dbConfig);
+    const sql = `
+    INSERT INTO cars (title, image, price, numberPlates)
+    VALUES (?,?,?,?)
+    `;
+    const [rows] = await conn.execute(sql, [title, image, price, numberPlates]);
+    if (rows.affectedRows === 1) {
+      res.status(201).json({ msg: 'car created' });
+    } else {
+      res.status(500).json({
+        msg: 'Something went wrong',
+      });
+    }
+
+    conn.end();
+  } catch (error) {
+    console.log('error ', error);
+    res.status(500).json({
+      msg: 'Something went wrong',
+    });
+  }
+});
+
 module.exports = carRouter;
