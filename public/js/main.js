@@ -6,6 +6,7 @@ const baseUrl = 'http://localhost:3000/api';
 const carListEl = document.getElementById('cars');
 const modalDeleteEl = document.getElementById('modalDelete');
 let currentDeleteCarId = null;
+const feedbackEl = document.getElementById('feedback');
 
 modalDeleteEl.addEventListener('click', () => {
   console.log('currentDeleteCarId ===', currentDeleteCarId);
@@ -40,10 +41,17 @@ function makeCarsListHtml(carsArr, dest) {
 }
 
 async function getCars(url, callBack) {
-  const resp = await fetch(url);
-  const dataInJs = await resp.json();
-  console.log('dataInJs ===', dataInJs);
-  callBack(dataInJs, carListEl);
+  try {
+    const resp = await fetch(url);
+    const dataInJs = await resp.json();
+    console.log('dataInJs ===', dataInJs);
+    callBack(dataInJs, carListEl);
+  } catch (error) {
+    console.log('error getCars ===', error);
+    if (error.message === 'Failed to fetch') {
+      showAlert('Something went wrong, try later');
+    }
+  }
 }
 
 getCars(`${baseUrl}/cars`, makeCarsListHtml);
@@ -61,4 +69,18 @@ async function deleteCar(idToDelete) {
     getCars(`${baseUrl}/cars`, makeCarsListHtml);
   }
   // jei ne pranesam apie klaida
+}
+
+function showAlert(msg) {
+  const alertHtml = `
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    ${msg}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>  
+  `;
+  feedbackEl.innerHTML = alertHtml;
+}
+
+function clearFeedback() {
+  feedbackEl.innerHTML = '';
 }
