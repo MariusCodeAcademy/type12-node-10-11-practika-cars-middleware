@@ -20,6 +20,14 @@ formEl.addEventListener('submit', async (e) => {
   };
   console.log('newCar ===', newCar);
 
+  // back end validation logic in fornt end
+  const { title, image, price, numberPlates } = newCar;
+  if ([title.trim(), image.trim(), price.trim(), numberPlates.trim()].includes('')) {
+    // we have error
+    showAlert('Visi laukai privalomi');
+    return;
+  }
+
   // siusti newCar i musu back end
   const resp = await fetch(`${baseUrl}/cars`, {
     method: 'POST',
