@@ -16,6 +16,13 @@ modalDeleteEl.addEventListener('click', () => {
 
 function makeCarsListHtml(carsArr, dest) {
   dest.innerHTML = '';
+
+  if (carsArr.length === 0) {
+    dest.innerHTML =
+      '<h3 class="mt-3 border"> There are no cars at the moment, please add some</h3>';
+    return;
+  }
+
   carsArr.forEach((cObj) => {
     const carDivEl = document.createElement('div');
     carDivEl.className = 'card';
