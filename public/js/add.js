@@ -1,11 +1,12 @@
 // eslint-disable-next-line strict, lines-around-directive
 'use strict';
 
+import { showAlert, clearFeedback } from './modules/alerts.js';
+
 console.log('add.js');
 const baseUrl = 'http://localhost:3000/api';
 
 const formEl = document.forms[0];
-const feedbackEl = document.getElementById('feedback');
 
 formEl.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -52,17 +53,3 @@ formEl.addEventListener('submit', async (e) => {
     }
   }
 });
-
-function showAlert(msg) {
-  const alertHtml = `
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    ${msg}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>  
-  `;
-  feedbackEl.innerHTML = alertHtml;
-}
-
-function clearFeedback() {
-  feedbackEl.innerHTML = '';
-}

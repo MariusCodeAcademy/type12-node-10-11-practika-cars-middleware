@@ -1,3 +1,5 @@
+import { showAlert } from './modules/alerts.js';
+
 console.log('main.js');
 
 // eslint-disable-next-line strict, linebreak-style
@@ -6,7 +8,7 @@ const baseUrl = 'http://localhost:3000/api';
 const carListEl = document.getElementById('cars');
 const modalDeleteEl = document.getElementById('modalDelete');
 let currentDeleteCarId = null;
-const feedbackEl = document.getElementById('feedback');
+// const feedbackEl = document.getElementById('feedback');
 
 modalDeleteEl.addEventListener('click', () => {
   console.log('currentDeleteCarId ===', currentDeleteCarId);
@@ -76,18 +78,4 @@ async function deleteCar(idToDelete) {
     getCars(`${baseUrl}/cars`, makeCarsListHtml);
   }
   // jei ne pranesam apie klaida
-}
-
-function showAlert(msg) {
-  const alertHtml = `
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    ${msg}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>  
-  `;
-  feedbackEl.innerHTML = alertHtml;
-}
-
-function clearFeedback() {
-  feedbackEl.innerHTML = '';
 }
