@@ -86,17 +86,28 @@ carRouter.delete('/:carId', async (req, res) => {
 });
 
 carRouter.post('/', async (req, res) => {
-  console.log('req.body ===', req.body);
   const { title, image, price, numberPlates } = req.body;
   const validationErrors = [];
   // bendra VALIDATION
-  if ([title.trim(), image.trim(), price.trim(), numberPlates.trim()].includes('')) {
-    res.status(400).json({
-      type: 'validation',
-      msg: 'Please check the form',
-    });
+  try {
+    if ([title.trim(), image.trim(), price.trim(), numberPlates.trim()].includes('')) {
+      res.status(400).json({
+        type: 'validation',
+        msg: 'Please check the form',
+      });
+      return;
+    }
+  } catch (error) {
+    console.log('error validation ===', error);
+    res.status(400).json('klaida validacijos');
     return;
   }
+
+  // console.log('req.body po validacija ===', req.body);
+  // res.json('kurti bloga');
+  // return;
+
+  // title?.trim() === if (title) {title.trim()}
 
   // individual validation
   // if (title.trim() === '') {

@@ -6,6 +6,7 @@ const colors = require('colors');
 const morgan = require('morgan');
 const cors = require('cors');
 const { testDbConnection } = require('./utils/helper');
+const { myFirstMiddleWare, showBody } = require('./middleware');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -14,10 +15,13 @@ const port = process.env.PORT || 5000;
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
+// globalus middleware
+app.use(showBody);
+// app.use(myFirstMiddleWare);
 // prisidedam morgan/cors
 // GET / - msg: server online
 
-app.get('/', (req, res) => {
+app.get('/', myFirstMiddleWare, (req, res) => {
   res.json({
     msg: 'Server online',
   });

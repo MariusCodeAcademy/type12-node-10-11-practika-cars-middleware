@@ -25,7 +25,7 @@ formEl.addEventListener('submit', async (e) => {
   if ([title.trim(), image.trim(), price.trim(), numberPlates.trim()].includes('')) {
     // we have error
     showAlert('Visi laukai privalomi');
-    return;
+    // return;
   }
 
   // siusti newCar i musu back end
