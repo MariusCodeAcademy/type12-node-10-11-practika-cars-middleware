@@ -90,36 +90,36 @@ carRouter.post('/', async (req, res) => {
   const { title, image, price, numberPlates } = req.body;
   const validationErrors = [];
   // bendra VALIDATION
-  // if (title.trim() === '' || image.trim() === '') {
-  //   res.status(400).json({
-  //     type: 'validation',
-  //     msg: 'Please check the form',
-  //   });
-  //   return;
-  // }
-
-  // individual validation
-  if (title.trim() === '') {
-    validationErrors.push({
-      field: 'title',
-      msg: 'cant be blank',
-    });
-  }
-  if (title.trim() < 3) {
-    validationErrors.push({
-      field: 'title',
-      msg: 'should be longer than 3',
-    });
-  }
-
-  // ar turim klaidu?
-  if (validationErrors.length > 0) {
+  if ([title.trim(), image.trim(), price.trim(), numberPlates.trim()].includes('')) {
     res.status(400).json({
       type: 'validation',
-      errors: validationErrors,
+      msg: 'Please check the form',
     });
     return;
   }
+
+  // individual validation
+  // if (title.trim() === '') {
+  //   validationErrors.push({
+  //     field: 'title',
+  //     msg: 'cant be blank',
+  //   });
+  // }
+  // if (title.trim() < 3) {
+  //   validationErrors.push({
+  //     field: 'title',
+  //     msg: 'should be longer than 3',
+  //   });
+  // }
+
+  // ar turim klaidu?
+  // if (validationErrors.length > 0) {
+  //   res.status(400).json({
+  //     type: 'validation',
+  //     errors: validationErrors,
+  //   });
+  //   return;
+  // }
 
   try {
     const conn = await mysql.createConnection(dbConfig);
